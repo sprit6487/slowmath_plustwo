@@ -650,9 +650,10 @@ function loadQuestion() {
     const qd = document.getElementById('question-display');
     if (gameType === 'nextnext') {
         var hintHtml = hintEnabled ? '<div class="hint-boxes">' +
+                '<div class="hint-box">' + (num - 1) + '</div>' +
                 '<div class="hint-box">' + num + '</div>' +
-                '<div class="hint-box">' + (num + 1) + '</div>' +
-                '<div class="hint-box blank" id="hint-answer">?</div>' +
+                '<div class="hint-box blank" id="hint-answer1">?</div>' +
+                '<div class="hint-box blank" id="hint-answer2">?</div>' +
             '</div>' : '';
         qd.innerHTML = '<div style="font-size:3.5rem;font-weight:900;color:#6BADE8;line-height:1;">' + num + '</div>' +
             '<div class="hint" style="font-size:1.2rem;font-weight:700;margin-top:12px;">다음 다음 수는?</div>' +
@@ -743,8 +744,10 @@ function pickAnswer(btn, picked, answer) {
         }
         if (gameType === 'nextnext') {
             if (hintEnabled) {
-                const hintEl = document.getElementById('hint-answer');
-                if (hintEl) { hintEl.textContent = answer; hintEl.className = 'hint-box revealed'; }
+                const hintEl1 = document.getElementById('hint-answer1');
+                const hintEl2 = document.getElementById('hint-answer2');
+                if (hintEl1) { hintEl1.textContent = num + 1; hintEl1.className = 'hint-box revealed'; }
+                if (hintEl2) { hintEl2.textContent = num + 2; hintEl2.className = 'hint-box revealed'; }
             }
             fb.textContent = '정답! ' + num + ' 다음 다음 수는 ' + answer;
         } else {
