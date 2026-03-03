@@ -105,6 +105,11 @@
         @media (min-width: 768px) {
             .hint-box { width: 76px; height: 76px; font-size: 1.75rem; }
         }
+        .mode-hint-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border: 2.5px solid #E8E2DA; border-top: 1.25px solid #E8E2DA; border-radius: 0 0 20px 20px; background: white; }
+        .mode-hint-row .setting-label { font-size: 0.85rem; }
+        .mode-hint-row .setting-desc { font-size: 0.7rem; }
+        .range-buttons.no-bottom-radius .range-btn:nth-child(4) { border-radius: 0; }
+        .range-buttons.no-bottom-radius .range-btn:nth-child(6) { border-radius: 0; }
 
         /* ── 설정 ── */
         .settings-section { width: 100%; margin-top: 16px; padding-top: 16px; border-top: 1.5px solid #F0ECE6; }
@@ -284,13 +289,22 @@
                     <div class="mode-title">다음 다음 수 익히기</div>
                     <div class="mode-desc">숫자를 보고 다음 다음 수를 골라요</div>
                 </div>
-                <div class="range-buttons">
+                <div class="range-buttons no-bottom-radius">
                     <button class="range-btn" onclick="startGame(1, 9, 'nextnext')">1 ~ 9</button>
                     <button class="range-btn" onclick="startGame(1, 19, 'nextnext')">1 ~ 19</button>
                     <button class="range-btn" onclick="startGame(1, 29, 'nextnext')">1 ~ 29</button>
                     <button class="range-btn" onclick="startGame(1, 39, 'nextnext')">1 ~ 39</button>
                     <button class="range-btn" onclick="startGame(1, 50, 'nextnext')">1 ~ 50</button>
                     <button class="range-btn" onclick="startGame(1, 99, 'nextnext')">1 ~ 99</button>
+                </div>
+                <div class="mode-hint-row">
+                    <div>
+                        <div class="setting-label">힌트</div>
+                        <div class="setting-desc">숫자 힌트 보기</div>
+                    </div>
+                    <button id="hint-toggle" onclick="toggleHint()" class="toggle-track on">
+                        <span class="toggle-knob"></span>
+                    </button>
                 </div>
             </div>
 
@@ -360,17 +374,6 @@
                     <div class="setting-desc">정답/오답 음성 안내</div>
                 </div>
                 <button id="tts-toggle" onclick="toggleTTS()" class="toggle-track on">
-                    <span class="toggle-knob"></span>
-                </button>
-            </div>
-
-            <!-- 힌트 -->
-            <div class="setting-row">
-                <div>
-                    <div class="setting-label">힌트</div>
-                    <div class="setting-desc">다음 다음 수 문제의 숫자 힌트</div>
-                </div>
-                <button id="hint-toggle" onclick="toggleHint()" class="toggle-track on">
                     <span class="toggle-knob"></span>
                 </button>
             </div>
