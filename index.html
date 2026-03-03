@@ -364,6 +364,17 @@
                 </button>
             </div>
 
+            <!-- 힌트 -->
+            <div class="setting-row">
+                <div>
+                    <div class="setting-label">힌트</div>
+                    <div class="setting-desc">다음 다음 수 문제의 숫자 힌트</div>
+                </div>
+                <button id="hint-toggle" onclick="toggleHint()" class="toggle-track on">
+                    <span class="toggle-knob"></span>
+                </button>
+            </div>
+
             <!-- 충동방지 -->
             <div class="setting-row">
                 <div>
@@ -484,10 +495,11 @@ let ttsEnabled = true;
 let impulsePrevention = true;
 let impulseMode = 'lock';
 let impulseDelay = 5;
+let hintEnabled = true;
 
 function saveSettings() {
     localStorage.setItem('slowmath_plustwo_settings', JSON.stringify({
-        ttsEnabled, impulsePrevention, impulseMode, impulseDelay
+        ttsEnabled, impulsePrevention, impulseMode, impulseDelay, hintEnabled
     }));
 }
 function loadSettings() {
@@ -498,10 +510,12 @@ function loadSettings() {
         if (typeof s.impulsePrevention === 'boolean') impulsePrevention = s.impulsePrevention;
         if (s.impulseMode === 'hide' || s.impulseMode === 'lock') impulseMode = s.impulseMode;
         if (typeof s.impulseDelay === 'number' && s.impulseDelay >= 1 && s.impulseDelay <= 10) impulseDelay = s.impulseDelay;
+        if (typeof s.hintEnabled === 'boolean') hintEnabled = s.hintEnabled;
     } catch(e) {}
 }
 function applySettingsUI() {
     document.getElementById('tts-toggle').classList.toggle('on', ttsEnabled);
+    document.getElementById('hint-toggle').classList.toggle('on', hintEnabled);
     document.getElementById('impulse-toggle').classList.toggle('on', impulsePrevention);
     document.getElementById('impulse-details').style.display = impulsePrevention ? '' : 'none';
     document.querySelectorAll('.impulse-mode-btn').forEach(b => b.classList.toggle('selected', b.dataset.mode === impulseMode));
@@ -544,6 +558,13 @@ function speak(text) {
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'ko-KR'; u.rate = 0.9;
     setTimeout(() => speechSynthesis.speak(u), 50);
+}
+
+/* ══════════ 힌트 ══════════ */
+function toggleHint() {
+    hintEnabled = !hintEnabled;
+    document.getElementById('hint-toggle').classList.toggle('on', hintEnabled);
+    saveSettings();
 }
 
 /* ══════════ 충동방지 ══════════ */
@@ -625,13 +646,14 @@ function loadQuestion() {
 
     const qd = document.getElementById('question-display');
     if (gameType === 'nextnext') {
-        qd.innerHTML = '<div style="font-size:3.5rem;font-weight:900;color:#6BADE8;line-height:1;">' + num + '</div>' +
-            '<div class="hint" style="font-size:1.2rem;font-weight:700;margin-top:12px;">다음 다음 수는?</div>' +
-            '<div class="hint-boxes">' +
+        var hintHtml = hintEnabled ? '<div class="hint-boxes">' +
                 '<div class="hint-box">' + num + '</div>' +
                 '<div class="hint-box">' + (num + 1) + '</div>' +
                 '<div class="hint-box blank" id="hint-answer">?</div>' +
-            '</div>';
+            '</div>' : '';
+        qd.innerHTML = '<div style="font-size:3.5rem;font-weight:900;color:#6BADE8;line-height:1;">' + num + '</div>' +
+            '<div class="hint" style="font-size:1.2rem;font-weight:700;margin-top:12px;">다음 다음 수는?</div>' +
+            hintHtml;
     } else {
         qd.innerHTML = '<div class="equation">' +
             '<span class="eq-num">' + num + '</span>' +
@@ -717,8 +739,10 @@ function pickAnswer(btn, picked, answer) {
             document.getElementById('score-label').textContent = score + '점';
         }
         if (gameType === 'nextnext') {
-            const hintEl = document.getElementById('hint-answer');
-            if (hintEl) { hintEl.textContent = answer; hintEl.className = 'hint-box revealed'; }
+            if (hintEnabled) {
+                const hintEl = document.getElementById('hint-answer');
+                if (hintEl) { hintEl.textContent = answer; hintEl.className = 'hint-box revealed'; }
+            }
             fb.textContent = '정답! ' + num + ' 다음 다음 수는 ' + answer;
         } else {
             fb.textContent = '정답! ' + num + ' + 2 = ' + answer;
