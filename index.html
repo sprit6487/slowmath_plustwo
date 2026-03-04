@@ -98,10 +98,12 @@
         @keyframes piA { 0%,40% { opacity:0; transform:scale(0); } 50% { opacity:1; transform:scale(1.3); } 55%,80% { opacity:1; transform:scale(1); } 90%,100% { opacity:0; transform:scale(0); } }
 
         /* ── 다음 다음 수 힌트 박스 ── */
-        .hint-boxes { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+        .hint-boxes { display: flex; justify-content: center; gap: 8px; margin-top: 20px; margin-bottom: 10px; }
         .hint-box { width: 64px; height: 64px; border-radius: 14px; border: 2.5px solid #E8E2DA; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #4A4035; background: #FAF5EE; }
         .hint-box.blank { border-style: dashed; border-color: #C4AA82; color: #D8D2C8; background: white; }
         .hint-box.revealed { border-style: solid; border-color: #5BC886; background: #D4F5E0; color: #1A7A3A; animation: popIn 0.4s ease; }
+        .hint-box.base { border-color: #FF9500; border-width: 3px; background: #FFF5E6; position: relative; }
+        .hint-box.base::after { content: '▲'; position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; color: #FF9500; }
         @media (min-width: 768px) {
             .hint-box { width: 76px; height: 76px; font-size: 1.75rem; }
         }
@@ -651,7 +653,7 @@ function loadQuestion() {
     if (gameType === 'nextnext') {
         var hintHtml = hintEnabled ? '<div class="hint-boxes">' +
                 '<div class="hint-box">' + (num - 1) + '</div>' +
-                '<div class="hint-box">' + num + '</div>' +
+                '<div class="hint-box base">' + num + '</div>' +
                 '<div class="hint-box blank" id="hint-answer1">?</div>' +
                 '<div class="hint-box blank" id="hint-answer2">?</div>' +
             '</div>' : '';
