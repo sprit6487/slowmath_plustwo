@@ -97,7 +97,7 @@
         @keyframes piQ { 0%,40% { opacity:1; } 50%,80% { opacity:0; } 90%,100% { opacity:1; } }
         @keyframes piA { 0%,40% { opacity:0; transform:scale(0); } 50% { opacity:1; transform:scale(1.3); } 55%,80% { opacity:1; transform:scale(1); } 90%,100% { opacity:0; transform:scale(0); } }
 
-        /* ── 다음 다음 수 힌트 박스 ── */
+        /* ── 2 큰 수 힌트 박스 ── */
         .hint-boxes { display: flex; justify-content: center; gap: 8px; margin-top: 20px; margin-bottom: 10px; }
         .hint-box { width: 64px; height: 64px; border-radius: 14px; border: 2.5px solid #E8E2DA; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #4A4035; background: #FAF5EE; }
         .hint-box.blank { border-style: dashed; border-color: #C4AA82; color: #D8D2C8; background: white; }
@@ -276,7 +276,7 @@
 
         <!-- 모드 선택 -->
         <div style="width:100%;">
-            <!-- 다음 다음 수 익히기 -->
+            <!-- 2 큰 수 익히기 -->
             <div class="mode-group">
                 <div class="mode-group-header">
                     <div class="mode-icon">
@@ -288,8 +288,8 @@
                             <span style="font-size:1.6rem; font-weight:900; color:#D8D2C8; animation: piQ 2.5s ease infinite;">?</span>
                         </div>
                     </div>
-                    <div class="mode-title">다음 다음 수 익히기</div>
-                    <div class="mode-desc">숫자를 보고 다음 다음 수를 골라요</div>
+                    <div class="mode-title">2 큰 수 익히기</div>
+                    <div class="mode-desc">숫자를 보고 2 큰 수를 골라요</div>
                 </div>
                 <div class="range-buttons no-bottom-radius">
                     <button class="range-btn" onclick="startGame(1, 9, 'nextnext')">1 ~ 9</button>
@@ -658,7 +658,7 @@ function loadQuestion() {
                 '<div class="hint-box blank" id="hint-answer2">?</div>' +
             '</div>' : '';
         qd.innerHTML = '<div style="font-size:3.5rem;font-weight:900;color:#6BADE8;line-height:1;">' + num + '</div>' +
-            '<div class="hint" style="font-size:1.2rem;font-weight:700;margin-top:12px;">다음 다음 수는?</div>' +
+            '<div class="hint" style="font-size:1.2rem;font-weight:700;margin-top:12px;">2 큰 수는?</div>' +
             hintHtml;
     } else {
         qd.innerHTML = '<div class="equation">' +
@@ -687,7 +687,7 @@ function loadQuestion() {
         optArea.appendChild(btn);
     });
 
-    speak(gameType === 'nextnext' ? (num + ' 다음 다음 수는?') : (num + ' 더하기 2는?'));
+    speak(gameType === 'nextnext' ? (num + ' 2 큰 수는?') : (num + ' 더하기 2는?'));
 
     /* 충동방지 */
     if (impulsePrevention) {
@@ -751,7 +751,7 @@ function pickAnswer(btn, picked, answer) {
                 if (hintEl1) { hintEl1.textContent = num + 1; hintEl1.className = 'hint-box revealed'; }
                 if (hintEl2) { hintEl2.textContent = num + 2; hintEl2.className = 'hint-box revealed'; }
             }
-            fb.textContent = '정답! ' + num + ' 다음 다음 수는 ' + answer;
+            fb.textContent = '정답! ' + num + ' 2 큰 수는 ' + answer;
         } else {
             fb.textContent = '정답! ' + num + ' + 2 = ' + answer;
         }
