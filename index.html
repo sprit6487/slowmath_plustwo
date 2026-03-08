@@ -392,12 +392,12 @@
             </div>
             <div id="impulse-details">
                 <div class="impulse-mode-options">
-                    <button class="impulse-mode-btn" onclick="setImpulseMode('hide')" data-mode="hide">
+                    <button class="impulse-mode-btn selected" onclick="setImpulseMode('hide')" data-mode="hide">
                         <span class="impulse-mode-icon">&#x1F440;</span>
                         <span class="impulse-mode-label">보기 확인</span>
                         <span class="impulse-mode-desc">버튼을 누르면 보기가 나타나요</span>
                     </button>
-                    <button class="impulse-mode-btn selected" onclick="setImpulseMode('lock')" data-mode="lock">
+                    <button class="impulse-mode-btn" onclick="setImpulseMode('lock')" data-mode="lock">
                         <span class="impulse-mode-icon">&#x1F512;</span>
                         <span class="impulse-mode-label">선택 잠금</span>
                         <span class="impulse-mode-desc">N초 동안 선택할 수 없어요</span>
@@ -498,7 +498,7 @@ let gameType = 'plustwo';
 /* 설정 */
 let ttsEnabled = true;
 let impulsePrevention = true;
-let impulseMode = 'lock';
+let impulseMode = 'hide';
 let impulseDelay = 5;
 let hintEnabled = true;
 
