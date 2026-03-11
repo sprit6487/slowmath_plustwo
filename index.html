@@ -515,6 +515,7 @@
         <div class="result-label">맞힌 문제</div>
         <div class="result-detail" id="result-detail"></div>
         <button class="retry-btn" onclick="goHome()">다시 하기</button>
+        <button onclick="shareApp()" class="retry-btn" style="background:white; color:#8C8070; border:2px solid #E8E2DA; margin-top:8px;">📤 공유하기</button>
     </div>
 
 </div>
@@ -587,6 +588,21 @@ function goHome() {
     isWrongNotePractice = false;
     showView('start-view');
     updateWrongNotesBadge();
+}
+
+function shareApp() {
+    const title = document.title;
+    const url = window.location.href;
+    const text = title + ' - 아이와 함께 연습해보세요!';
+    if (navigator.share) {
+        navigator.share({ title: title, text: text, url: url }).catch(function(){});
+    } else {
+        navigator.clipboard.writeText(url).then(function() {
+            alert('링크가 복사되었습니다!');
+        }).catch(function() {
+            prompt('링크를 복사하세요:', url);
+        });
+    }
 }
 
 /* ══════════ TTS ══════════ */
