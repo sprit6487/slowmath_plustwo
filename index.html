@@ -474,7 +474,7 @@
                         <span class="impulse-mode-desc">N초 동안 선택할 수 없어요</span>
                     </button>
                 </div>
-                <div class="imp-sec-row">
+                <div class="imp-sec-row" id="impulse-delay-row">
                     <button onclick="setImpulseDelay(1)" class="imp-sec">1초</button>
                     <button onclick="setImpulseDelay(2)" class="imp-sec">2초</button>
                     <button onclick="setImpulseDelay(3)" class="imp-sec">3초</button>
@@ -613,6 +613,7 @@ function applySettingsUI() {
     document.getElementById('impulse-toggle').classList.toggle('on', impulsePrevention);
     document.getElementById('impulse-details').style.display = impulsePrevention ? '' : 'none';
     document.querySelectorAll('.impulse-mode-btn').forEach(b => b.classList.toggle('selected', b.dataset.mode === impulseMode));
+    document.getElementById('impulse-delay-row').style.display = impulseMode === 'lock' ? '' : 'none';
     document.querySelectorAll('.imp-sec').forEach((b, i) => b.classList.toggle('active', i + 1 === impulseDelay));
 }
 
@@ -688,6 +689,7 @@ function toggleImpulse() {
 function setImpulseMode(mode) {
     impulseMode = mode;
     document.querySelectorAll('.impulse-mode-btn').forEach(b => b.classList.toggle('selected', b.dataset.mode === mode));
+    document.getElementById('impulse-delay-row').style.display = mode === 'lock' ? '' : 'none';
     saveSettings();
 }
 function setImpulseDelay(sec) {
