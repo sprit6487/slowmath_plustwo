@@ -42,6 +42,8 @@
         .feedback { text-align: center; font-size: 1.1rem; font-weight: 700; padding: 12px 0; min-height: 48px; }
         .feedback.correct { color: #5BC886; }
         .feedback.wrong { color: #F07070; }
+        .btn-next-q { display: block; width: 100%; max-width: 360px; margin: 8px auto 0; padding: 14px 0; border-radius: 16px; border: none; background: #4A4035; color: white; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.15s, transform 0.1s; box-shadow: 0 2px 8px rgba(74,64,53,0.15); }
+        .btn-next-q:active { transform: scale(0.98); background: #2E261D; }
 
         /* ── 로그인 ── */
         .login-view { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-height: 100dvh; padding: 40px 20px; }
@@ -565,6 +567,7 @@
         <div id="impulse-area"></div>
         <div class="options-grid" id="options"></div>
         <div class="feedback" id="feedback"></div>
+        <button class="btn-next-q" id="next-q-btn" style="display:none;" onclick="onNextQ()">다음 문제 →</button>
     </div>
 
     <!-- ══════════ 오답노트 ══════════ -->
@@ -788,7 +791,13 @@ function startGame(min, max, mode) {
 }
 
 /* ══════════ 문제 로드 ══════════ */
+function onNextQ() {
+  document.getElementById('next-q-btn').style.display = 'none';
+  loadQuestion();
+}
+
 function loadQuestion() {
+    document.getElementById('next-q-btn').style.display='none';
     if (currentQ >= TOTAL) { showResult(); return; }
     busy = false;
 
@@ -916,7 +925,7 @@ function pickAnswer(btn, picked, answer) {
         fb.className = 'feedback correct';
         speak('정답! ' + answer);
         currentQ++;
-        setTimeout(loadQuestion, 1500);
+        document.getElementById('next-q-btn').style.display='';
     } else {
         if (!firstAttemptWrong) {
             addWrongNote(num, gameType);
