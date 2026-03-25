@@ -656,6 +656,7 @@ function showView(id) {
 function socialLogin(provider) {
     localStorage.setItem('slowmath_plustwo_login', JSON.stringify({ provider, time: Date.now() }));
     if (window.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(''));
+    const _sp=sessionStorage.getItem('_sp');if(_sp){sessionStorage.removeItem('_sp');startGame(...JSON.parse(_sp));return;}
     showView('start-view');
 }
 function logout() {
@@ -756,7 +757,7 @@ function generateOptions(correct) {
 
 /* ══════════ 게임 시작 ══════════ */
 function startGame(min, max, mode) {
-    if (!localStorage.getItem('slowmath_plustwo_login')) { showView('login-view'); return; }
+    if (!localStorage.getItem('slowmath_plustwo_login')) { sessionStorage.setItem('_sp',JSON.stringify([min,max,mode])); showView('login-view'); return; }
         isWrongNotePractice = false;
     if (mode === 'nextnext') {
         gameType = 'nextnext';
