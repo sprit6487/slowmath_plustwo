@@ -538,7 +538,7 @@
             오답노트 <span class="badge" id="wn-badge">0</span>
         </button>
 
-        <button class="logout-btn" onclick="logout()">로그아웃</button>
+        <button class="logout-btn" style="display:none" onclick="logout()">로그아웃</button>
     </div>
 
     <!-- ══════════ 게임 화면 ══════════ -->
@@ -650,6 +650,7 @@ function showView(id) {
     VIEWS.forEach(v => {
         document.getElementById(v).style.display = (v === id) ? 'flex' : 'none';
     });
+    const lb=document.querySelector('.logout-btn');if(lb)lb.style.display=id==='start-view'&&localStorage.getItem('slowmath_plustwo_login')?'':'none';
 }
 
 /* ══════════ 로그인 ══════════ */
@@ -657,6 +658,7 @@ function socialLogin(provider) {
     localStorage.setItem('slowmath_plustwo_login', JSON.stringify({ provider, time: Date.now() }));
     if (window.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(''));
     const _sp=sessionStorage.getItem('_sp');if(_sp){sessionStorage.removeItem('_sp');startGame(...JSON.parse(_sp));return;}
+    document.querySelector('.logout-btn').style.display='';
     showView('start-view');
 }
 function logout() {
