@@ -100,7 +100,7 @@
 
         /* ── 시작 화면 ── */
         .start-view { display: none; flex-direction: column; align-items: center; flex: 1; padding-top: 24px; }
-        .start-header { text-align: center; margin-bottom: 24px; }
+        .start-header { display:flex; flex-direction:column; align-items:center; margin-bottom: 20px; }
         .brand-sub{font-size:.8rem;color:#B8AD9E;margin-bottom:0;font-weight:500;}
 
         /* ── 모드 그룹 ── */
@@ -263,9 +263,10 @@
     .splash-overlay.fade-out { opacity: 0; pointer-events: none; }
     .splash-logo { animation: splashFloat 2.4s ease-in-out infinite; margin-bottom: 24px; }
     .splash-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.025em; margin-bottom: 8px; }
-    .splash-subtitle { color: #B8B0A8; font-size: 0.9375rem; font-weight: 500; margin-bottom: 48px; }
+    .splash-subtitle { color: #B8B0A8; font-size: 0.9375rem; font-weight: 500; }
     @keyframes splashFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-    @media (min-width:768px) { .splash-title{font-size:2.5rem} .splash-subtitle{font-size:1.0625rem} }
+    @media (max-width:380px) { .splash-title{font-size:1.5rem} }
+    @media (min-width:768px) { .splash-logo svg{width:160px;height:134px} .splash-title{font-size:2.5rem} .splash-subtitle{font-size:1.0625rem} }
 </style>
 </head>
 <body>
