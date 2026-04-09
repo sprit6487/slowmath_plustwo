@@ -309,6 +309,52 @@
         .wn-btn-start { border: none; background: #F07070; color: white; box-shadow: 0 2px 8px rgba(240,112,112,.3); }
         .wn-btn-clear { border: 1.5px solid #E8E2DA; background: white; color: #B8AD9E; padding: 8px 16px; border-radius: 8px; font-size: .75rem; font-weight: 600; cursor: pointer; margin-top: 12px; font-family: 'Noto Sans KR', sans-serif; }
     
+    /* ── 숫자판으로 익히기 ── */
+    .nb-mode-icon { display:flex; flex-direction:column; gap:3px; align-items:center; }
+    .nb-mini-row { display:flex; gap:3px; }
+    .nb-mini-cell { width:19px; height:19px; border-radius:3px; border:1.5px solid #E8E2DA; background:#FAF5EE; display:flex; align-items:center; justify-content:center; font-size:0.5rem; font-weight:700; color:#C4B8A8; }
+    .nb-mini-cell.wood { background:linear-gradient(160deg,#D4935A,#A06528); border-color:#7A4E28; border-bottom-color:#4A2E10; color:#FFF5E8; box-shadow:1px 2px 0 #4A2E10; transform:translateY(-1px); position:relative; }
+    .nb-mini-cell.inter { background:linear-gradient(160deg,#E8B06A,#B07030); border:1.5px dashed #9B6830; color:rgba(255,248,228,0.6); box-shadow:1px 2px 0 #7A4820; transform:translateY(-1px); position:relative; }
+    .nb-mini-cell.blank { background:linear-gradient(160deg,#E8AD6A,#B07030); border:1.5px dashed #8B5E30; color:rgba(255,248,228,0.8); box-shadow:1px 2px 0 #6A3818; transform:translateY(-1px); position:relative; font-size:0.6rem; }
+
+    .numboard-wrap { text-align:center; padding:4px 0 0; }
+    .nb-question-text { font-size:0.95rem; font-weight:700; color:#8C8070; margin-bottom:6px; }
+    .numboard-grid { display:grid; grid-template-columns:repeat(10, 1fr); gap:4px; width:100%; max-width:400px; margin:6px auto; }
+    .nb-cell { aspect-ratio:1; border-radius:6px; border:1.5px solid #E8E2DA; background:#FAF5EE; display:flex; align-items:center; justify-content:center; font-size:0.68rem; font-weight:700; color:#C4B8A8; }
+    .nb-cell.wood-given {
+        background:linear-gradient(160deg,#D4935A 0%,#B07238 50%,#8E6020 100%);
+        border:2px solid #7A4E28; border-bottom-color:#4A2E10; border-right-color:#5A3818;
+        color:#FFF5E8; text-shadow:0 1px 2px rgba(0,0,0,0.4);
+        box-shadow:0 2px 0 #4A2E10, 0 4px 8px rgba(90,50,20,0.3), inset 0 1px 1px rgba(255,255,255,0.22);
+        transform:translateY(-2px); position:relative; z-index:2; font-size:0.82rem; font-weight:900;
+    }
+    .nb-cell.wood-inter {
+        background:linear-gradient(160deg,#E8B06A 0%,#C08840 50%,#A07030 100%);
+        border:2px dashed #9B6830;
+        color:rgba(255,248,228,0.55); font-size:0.75rem;
+        box-shadow:0 2px 0 #7A4820, 0 4px 8px rgba(80,45,15,0.2), inset 0 1px 1px rgba(255,255,255,0.15);
+        transform:translateY(-2px); position:relative; z-index:2; font-weight:900;
+    }
+    .nb-cell.wood-inter.revealed {
+        background:linear-gradient(160deg,#D4935A 0%,#B07238 50%,#8E6020 100%);
+        border-style:solid; border-color:#7A4E28; border-bottom-color:#4A2E10; border-right-color:#5A3818;
+        color:#FFF5E8; font-size:0.82rem; text-shadow:0 1px 2px rgba(0,0,0,0.4);
+        animation:popIn 0.4s ease;
+    }
+    .nb-cell.wood-blank {
+        background:linear-gradient(160deg,#EAB870 0%,#C89040 50%,#A87830 100%);
+        border:2px dashed #9B6830;
+        color:rgba(255,248,228,0.65); font-size:0.9rem;
+        box-shadow:0 2px 0 #7A4820, 0 4px 8px rgba(80,45,15,0.22), inset 0 1px 1px rgba(255,255,255,0.18);
+        transform:translateY(-2px); position:relative; z-index:2; font-weight:900;
+    }
+    .nb-cell.wood-blank.revealed {
+        background:linear-gradient(160deg,#D4935A 0%,#B07238 50%,#8E6020 100%);
+        border-style:solid; border-color:#7A4E28; border-bottom-color:#4A2E10; border-right-color:#5A3818;
+        color:#FFF5E8; font-size:0.82rem; text-shadow:0 1px 2px rgba(0,0,0,0.4);
+        animation:popIn 0.4s ease;
+    }
+
     /* ── Splash Screen ── */
     .splash-overlay {
         position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -460,6 +506,38 @@ setTimeout(function() {
         </div>
         <!-- 모드 선택 -->
         <div style="width:100%;">
+            <!-- 숫자판으로 익히기 -->
+            <div class="mode-group">
+                <div class="mode-group-header">
+                    <div class="mode-icon">
+                        <div class="nb-mode-icon">
+                            <div class="nb-mini-row">
+                                <div class="nb-mini-cell">1</div>
+                                <div class="nb-mini-cell">2</div>
+                                <div class="nb-mini-cell wood">3</div>
+                                <div class="nb-mini-cell inter">·</div>
+                                <div class="nb-mini-cell blank">?</div>
+                                <div class="nb-mini-cell">6</div>
+                                <div class="nb-mini-cell">7</div>
+                                <div class="nb-mini-cell">8</div>
+                                <div class="nb-mini-cell">9</div>
+                                <div class="nb-mini-cell">10</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mode-title">숫자판으로 익히기</div>
+                    <div class="mode-desc">숫자판에서 2 큰 수를 찾아요</div>
+                </div>
+                <div class="range-buttons">
+                    <button class="range-btn" onclick="startGame(1, 9, 'numboard')">1 ~ 9</button>
+                    <button class="range-btn" onclick="startGame(1, 19, 'numboard')">1 ~ 19</button>
+                    <button class="range-btn" onclick="startGame(1, 29, 'numboard')">1 ~ 29</button>
+                    <button class="range-btn" onclick="startGame(1, 39, 'numboard')">1 ~ 39</button>
+                    <button class="range-btn" onclick="startGame(1, 50, 'numboard')">1 ~ 50</button>
+                    <button class="range-btn" onclick="startGame(51, 98, 'numboard')">51 ~ 98</button>
+                </div>
+            </div>
+
             <!-- 2 큰 수 익히기 -->
             <div class="mode-group">
                 <div class="mode-group-header">
@@ -847,6 +925,24 @@ function generateOptions(correct) {
     return arr;
 }
 
+/* ══════════ 숫자판 헬퍼 ══════════ */
+function renderNumberBoard(boardMin, boardMax, givenNum, answerNum) {
+    let html = '<div class="numboard-grid">';
+    for (let i = boardMin; i <= boardMax; i++) {
+        if (i === givenNum) {
+            html += '<div class="nb-cell wood-given">' + i + '</div>';
+        } else if (i > givenNum && i < answerNum) {
+            html += '<div class="nb-cell wood-inter" data-nb-inter data-val="' + i + '">·</div>';
+        } else if (i === answerNum) {
+            html += '<div class="nb-cell wood-blank" id="nb-blank-cell">?</div>';
+        } else {
+            html += '<div class="nb-cell">' + i + '</div>';
+        }
+    }
+    html += '</div>';
+    return html;
+}
+
 /* ══════════ 게임 시작 ══════════ */
 function startGame(min, max, mode) {
     if (!localStorage.getItem('slowmath_plustwo_login')) { sessionStorage.setItem('_sp',JSON.stringify([min,max,mode])); showView('login-view'); return; }
@@ -854,6 +950,12 @@ function startGame(min, max, mode) {
     if (mode === 'nextnext') {
         gameType = 'nextnext';
         generateQuestions(min, max, 'random');
+    } else if (mode === 'numboard') {
+        gameType = 'numboard';
+        // 항상 10열 그리드. boardCount = max-min+3 (n, n+1, n+2 포함). 10의 배수 맞춤.
+        var boardCount = max - min + 3;
+        var qMax = (boardCount % 10 !== 0) ? max - (boardCount % 10) : max;
+        generateQuestions(min, qMax, 'random');
     } else {
         gameType = 'plustwo';
         generateQuestions(min, max, mode || 'random');
@@ -899,6 +1001,13 @@ function loadQuestion() {
         qd.innerHTML = '<div style="font-size:3.5rem;font-weight:900;color:#6BADE8;line-height:1;">' + num + '</div>' +
             '<div class="hint" style="font-size:1.2rem;font-weight:700;margin-top:12px;">2 큰 수는?</div>' +
             hintHtml;
+    } else if (gameType === 'numboard') {
+        var boardMin = rangeMin;
+        var boardMax = rangeMax + 2;
+        qd.innerHTML = '<div class="numboard-wrap">' +
+            '<div class="nb-question-text">' + num + ' 에서 2 큰 수는?</div>' +
+            renderNumberBoard(boardMin, boardMax, num, answer) +
+            '</div>';
     } else {
         qd.innerHTML = '<div class="equation">' +
             '<span class="eq-num">' + num + '</span>' +
@@ -926,7 +1035,7 @@ function loadQuestion() {
         optArea.appendChild(btn);
     });
 
-    speak(gameType === 'nextnext' ? (num + ' 2 큰 수는?') : (num + ' 더하기 2는?'));
+    speak((gameType === 'nextnext' || gameType === 'numboard') ? (num + ' 2 큰 수는?') : (num + ' 더하기 2는?'));
 
     /* 충동방지 */
     if (impulsePrevention) {
@@ -994,6 +1103,14 @@ function pickAnswer(btn, picked, answer) {
                 if (hintEl2) { hintEl2.textContent = num + 2; hintEl2.className = 'hint-box revealed'; }
             }
             fb.textContent = '정답! ' + num + ' 2 큰 수는 ' + answer;
+        } else if (gameType === 'numboard') {
+            const blankEl = document.getElementById('nb-blank-cell');
+            if (blankEl) { blankEl.textContent = answer; blankEl.classList.add('revealed'); }
+            document.querySelectorAll('[data-nb-inter]').forEach(function(el) {
+                el.textContent = el.getAttribute('data-val');
+                el.classList.add('revealed');
+            });
+            fb.textContent = '정답! ' + num + ' 에서 2 큰 수는 ' + answer;
         } else {
             fb.textContent = '정답! ' + num + ' + 2 = ' + answer;
         }
@@ -1021,7 +1138,7 @@ _smGameCompleted=true;
     document.getElementById('result-emoji').textContent = score === TOTAL ? '🏆' : '👏';
     document.getElementById('result-msg').textContent = TOTAL + '문제 완료!';
     document.getElementById('result-detail').textContent = TOTAL + '문제 중 ' + score + '개 정답';
-    document.getElementById('result-retry-btn').onclick = function() { startGame(rangeMin, rangeMax, gameType === 'nextnext' ? 'nextnext' : 'random'); };
+    document.getElementById('result-retry-btn').onclick = function() { startGame(rangeMin, rangeMax, gameType === 'nextnext' ? 'nextnext' : (gameType === 'numboard' ? 'numboard' : 'random')); };
     speak(score + '개 맞았어요!');
 }
 
@@ -1076,7 +1193,7 @@ function showWrongNotes() {
         notes.forEach(n => {
             const chip = document.createElement('span');
             chip.className = 'wn-chip';
-            chip.textContent = n.gameType === 'nextnext' ? (n.num + ' → ?') : (n.num + ' + 2 = ?');
+            chip.textContent = (n.gameType === 'nextnext' || n.gameType === 'numboard') ? (n.num + ' → ?') : (n.num + ' + 2 = ?');
             list.appendChild(chip);
         });
     }
