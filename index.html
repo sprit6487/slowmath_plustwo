@@ -811,7 +811,7 @@ function socialLogin(provider) {
 }
 function logout() {
     localStorage.removeItem('slowmath_plustwo_login');
-    showView('login-view');
+    showView('start-view');
 }
 function goHome() {
     if (delayTimer) { clearInterval(delayTimer); delayTimer = null; }
@@ -1233,7 +1233,11 @@ function clearWrongNotes() {
 (function init() {
     loadSettings();
     applySettingsUI();
+<<<<<<< Updated upstream
     updateWrongNotesBadge();
+=======
+    const session = localStorage.getItem('slowmath_plustwo_login');
+>>>>>>> Stashed changes
     showView('start-view');
     if (window.speechSynthesis) {
         speechSynthesis.getVoices();
